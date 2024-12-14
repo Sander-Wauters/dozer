@@ -1,7 +1,7 @@
 ## Plan of attack
 
 - [x] Machine data object to be used by the UI and the API.
-- [ ] Machine datasource to be used for the previews.
+- [x] Machine datasource to be used for the previews.
 - [ ] Machines screen.
 - [ ] Style for the UI.
 - [ ] Machines screen viewmodel using datasource.
