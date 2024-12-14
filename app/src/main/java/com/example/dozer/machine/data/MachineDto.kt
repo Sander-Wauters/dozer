@@ -6,8 +6,8 @@ abstract class MachineDto {
         val brand: String,
         val name: String,
         val serialNumber: String,
-        val type: String,
-        val description: String,
-        val imageUrl: String
+        val type: String?,
+        val description: String?,
+        val imageUrl: String?
     )
 }
