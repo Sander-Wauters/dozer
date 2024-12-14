@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.example.dozer.common.ui.IndexCard
 import com.example.dozer.machine.data.MachineDatasource
 import com.example.dozer.machine.data.MachineDto
-import com.example.dozer.ui.theme.DozerTheme
+import com.example.dozer.common.ui.theme.DozerTheme
 
 @Composable
 fun MachineScreen(

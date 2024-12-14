@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.example.dozer.machine.data.MachineDatasource
 import com.example.dozer.machine.ui.MachineScreen
-import com.example.dozer.ui.theme.DozerTheme
+import com.example.dozer.common.ui.theme.DozerTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

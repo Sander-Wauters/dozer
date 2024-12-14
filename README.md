@@ -3,7 +3,7 @@
 - [x] Machine data object to be used by the UI and the API.
 - [x] Machine datasource to be used for the previews.
 - [x] Machines screen.
-- [ ] Style for the UI.
+- [x] Style for the UI.
 - [ ] Machines screen viewmodel using datasource.
 - [ ] Machine repository using datasource. 
 - [ ] Link the machine repository to the machine screen viewmodel.
