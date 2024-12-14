@@ -5,8 +5,8 @@
 - [x] Machines screen.
 - [x] Style for the UI.
 - [x] Machines screen viewmodel using datasource.
-- [ ] Machine repository using datasource. 
-- [ ] Link the machine repository to the machine screen viewmodel.
+- [x] Machine repository using datasource. 
+- [x] Link the machine repository to the machine screen viewmodel.
 - [ ] Link the machine repository to the API.
 - [ ] Machine domain object to be used by the local DB.
 - [ ] Local DB setup.

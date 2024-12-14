@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.dozer.R
 import com.example.dozer.common.ui.theme.DozerTheme
-import com.example.dozer.machine.data.MachineDatasource
+import com.example.dozer.machine.data.MockMachineDatasource
 import com.example.dozer.machine.ui.MachineUiState
 import com.example.dozer.machine.ui.UiState
 
@@ -89,7 +89,7 @@ fun AsyncDataErrorPreview() {
 fun AsyncDataSuccessPreview() {
     DozerTheme {
         AsyncData(
-            data = MachineUiState.Success(MachineDatasource().loadMachines()),
+            data = MachineUiState.Success(MockMachineDatasource().loadMachines()),
             retry = {}
         ) {
             Text("should be visible")

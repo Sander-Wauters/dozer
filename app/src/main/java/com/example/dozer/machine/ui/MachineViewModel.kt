@@ -8,8 +8,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.dozer.machine.data.MachineDatasource
 import com.example.dozer.machine.data.MachineDto
+import com.example.dozer.machine.data.MachineRepository
+import com.example.dozer.machine.data.MockMachineRepository
 import kotlinx.coroutines.launch
 import okio.IOException
 
@@ -25,7 +26,9 @@ sealed interface MachineUiState : UiState {
     data object Loading : MachineUiState, UiState.Loading
 }
 
-class MachineViewModel : ViewModel() {
+class MachineViewModel(
+    private val machineRepo: MachineRepository
+) : ViewModel() {
     var uiState: MachineUiState by mutableStateOf(MachineUiState.Loading)
         private set
 
@@ -37,7 +40,7 @@ class MachineViewModel : ViewModel() {
         viewModelScope.launch {
             uiState = MachineUiState.Loading
             uiState = try {
-                MachineUiState.Success(MachineDatasource().loadMachines())
+                MachineUiState.Success(machineRepo.getIndex().machines ?: emptyList())
             } catch (e: IOException) {
                 MachineUiState.Error
             }
@@ -47,7 +50,7 @@ class MachineViewModel : ViewModel() {
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                MachineViewModel()
+                MachineViewModel(MockMachineRepository())
             }
         }
     }
