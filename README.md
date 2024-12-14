@@ -4,7 +4,7 @@
 - [x] Machine datasource to be used for the previews.
 - [x] Machines screen.
 - [x] Style for the UI.
-- [ ] Machines screen viewmodel using datasource.
+- [x] Machines screen viewmodel using datasource.
 - [ ] Machine repository using datasource. 
 - [ ] Link the machine repository to the machine screen viewmodel.
 - [ ] Link the machine repository to the API.

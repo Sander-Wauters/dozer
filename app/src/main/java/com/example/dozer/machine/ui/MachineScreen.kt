@@ -1,7 +1,6 @@
 package com.example.dozer.machine.ui
 
 import android.util.Log
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -12,28 +11,33 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.dozer.common.ui.AsyncData
 import com.example.dozer.common.ui.IndexCard
-import com.example.dozer.machine.data.MachineDatasource
-import com.example.dozer.machine.data.MachineDto
 import com.example.dozer.common.ui.theme.DozerTheme
 
 @Composable
 fun MachineScreen(
-    machines: List<MachineDto.Index>
+    machineViewModel: MachineViewModel
 ) {
     Scaffold { innerPadding ->
-        LazyVerticalGrid(
-            columns = GridCells.Adaptive(400.dp),
-            modifier = Modifier.padding(innerPadding)
+        AsyncData(
+            data = machineViewModel.uiState,
+            retry = {}
         ) {
-            items(machines) { machine ->
-                IndexCard(
-                    imageUrl = machine.imageUrl,
-                    title = "${machine.serialNumber} ${machine.name}",
-                    description = machine.description ?: "",
-                    modifier = Modifier.padding(8.dp).width(400.dp)
-                ) {
-                    Log.d("Machine clicked", machine.name)
+            LazyVerticalGrid(
+                columns = GridCells.Adaptive(400.dp),
+                modifier = Modifier.padding(innerPadding)
+            ) {
+                items((machineViewModel.uiState as MachineUiState.Success).machines) { machine ->
+                    IndexCard(
+                        imageUrl = machine.imageUrl,
+                        title = "${machine.serialNumber} ${machine.name}",
+                        description = machine.description ?: "",
+                        modifier = Modifier.padding(8.dp).width(400.dp)
+                    ) {
+                        Log.d("Machine clicked", machine.name)
+                    }
                 }
             }
         }
@@ -44,8 +48,6 @@ fun MachineScreen(
 @Composable
 fun MachineScreenPreview() {
     DozerTheme {
-        MachineScreen(
-            machines = MachineDatasource().loadMachines()
-        )
+        MachineScreen(viewModel(factory = MachineViewModel.Factory))
     }
 }

@@ -4,9 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.dozer.machine.data.MachineDatasource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.dozer.machine.ui.MachineScreen
 import com.example.dozer.common.ui.theme.DozerTheme
+import com.example.dozer.machine.ui.MachineViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,7 +15,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             DozerTheme {
-                MachineScreen(MachineDatasource().loadMachines())
+                MachineScreen(viewModel(factory = MachineViewModel.Factory))
             }
         }
     }
