@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.dozer.R
-import com.example.dozer.machine.data.MockMachineDatasource
+import com.example.dozer.machine.data.local.MockMachineDatasource
 import com.example.dozer.machine.data.MachineDto
 import com.example.dozer.common.ui.theme.DozerTheme
 

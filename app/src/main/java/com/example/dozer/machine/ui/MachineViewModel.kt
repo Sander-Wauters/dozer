@@ -5,14 +5,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.dozer.DozerDatabase
 import com.example.dozer.machine.data.MachineDto
 import com.example.dozer.machine.data.MachineRepository
 import com.example.dozer.machine.data.MockMachineRepository
+import com.example.dozer.machine.data.OfflineMachineRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -37,7 +38,7 @@ class MachineViewModel(
         viewModelScope.launch {
             machineRepo.getIndex()
                 .map {
-                    MachineUiState.Success(it.machines ?: emptyList())
+                    MachineUiState.Success(it)
                 }
                 .catch {
                     MachineUiState.Error
