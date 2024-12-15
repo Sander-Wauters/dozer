@@ -9,7 +9,12 @@ import com.example.dozer.machine.data.MachineDto
 import com.example.dozer.machine.data.MachineRepository
 import com.example.dozer.machine.data.MockMachineRepository
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 sealed interface MachineUiState {
@@ -21,7 +26,7 @@ sealed interface MachineUiState {
 class MachineViewModel(
     private val machineRepo: MachineRepository
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(MachineUiState.Success(emptyList()))
+    private val _uiState: MutableStateFlow<MachineUiState> = MutableStateFlow(MachineUiState.Success(emptyList()))
     val uiState: StateFlow<MachineUiState> = _uiState
 
     init {
@@ -30,7 +35,21 @@ class MachineViewModel(
 
     fun getIndex() {
         viewModelScope.launch {
-
+            machineRepo.getIndex()
+                .map {
+                    MachineUiState.Success(it.machines ?: emptyList())
+                }
+                .catch {
+                    MachineUiState.Error
+                }
+                .stateIn(
+                    scope = viewModelScope,
+                    started = SharingStarted.WhileSubscribed(5_000),
+                    initialValue = MachineUiState.Loading
+                )
+                .collect {
+                    _uiState.value = it
+                }
         }
     }
 
