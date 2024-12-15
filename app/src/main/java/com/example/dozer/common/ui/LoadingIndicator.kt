@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.dozer.common.ui.theme.DozerTheme
 
 @Composable
-fun LoadingScreen() {
+fun LoadingIndicator() {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -24,8 +24,8 @@ fun LoadingScreen() {
 
 @Preview(showBackground = true)
 @Composable
-fun LoadingScreenPreview() {
+fun LoadingIndicatorPreview() {
     DozerTheme {
-        LoadingScreen()
+        LoadingIndicator()
     }
 }

@@ -8,16 +8,15 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.dozer.common.ui.ErrorScreen
+import com.example.dozer.common.ui.NetworkErrorIndicator
 import com.example.dozer.common.ui.IndexCard
-import com.example.dozer.common.ui.LoadingScreen
+import com.example.dozer.common.ui.LoadingIndicator
 import com.example.dozer.common.ui.theme.DozerTheme
 
 @Composable
@@ -31,8 +30,14 @@ fun MachineScreen(
             modifier = Modifier.padding(innerPadding)
         ) {
             when(val state = uiState) {
-                is MachineUiState.Loading -> item { LoadingScreen() }
-                is MachineUiState.Error -> item { ErrorScreen {  } }
+                is MachineUiState.Loading -> item {
+                    LoadingIndicator()
+                }
+                is MachineUiState.Error -> item {
+                    NetworkErrorIndicator {
+                        machineViewModel.getIndex()
+                    }
+                }
                 is MachineUiState.Success -> {
                     items(state.machines) { machine ->
                         IndexCard(

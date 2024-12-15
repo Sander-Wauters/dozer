@@ -19,7 +19,7 @@ import com.example.dozer.R
 import com.example.dozer.common.ui.theme.DozerTheme
 
 @Composable
-fun ErrorScreen(
+fun NetworkErrorIndicator(
     retry: () -> Unit
 ) {
     Column(
@@ -40,8 +40,8 @@ fun ErrorScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun ErrorScreenPreview() {
+fun NetworkErrorIndicatorScreenPreview() {
     DozerTheme {
-        ErrorScreen {}
+        NetworkErrorIndicator {}
     }
 }
