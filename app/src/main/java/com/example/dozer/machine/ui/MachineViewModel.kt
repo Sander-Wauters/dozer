@@ -14,16 +14,10 @@ import com.example.dozer.machine.data.MockMachineRepository
 import kotlinx.coroutines.launch
 import okio.IOException
 
-sealed interface UiState {
-    sealed interface Success : UiState
-    sealed interface Error : UiState
-    sealed interface Loading : UiState
-}
-
-sealed interface MachineUiState : UiState {
-    data class Success(val machines: List<MachineDto.Index>) : MachineUiState, UiState.Success
-    data object Error : MachineUiState, UiState.Error
-    data object Loading : MachineUiState, UiState.Loading
+sealed interface MachineUiState {
+    data class Success(val machines: List<MachineDto.Index>) : MachineUiState
+    data object Error : MachineUiState
+    data object Loading : MachineUiState
 }
 
 class MachineViewModel(

@@ -12,8 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.dozer.common.ui.AsyncData
+import com.example.dozer.common.ui.ErrorScreen
 import com.example.dozer.common.ui.IndexCard
+import com.example.dozer.common.ui.LoadingScreen
 import com.example.dozer.common.ui.theme.DozerTheme
 
 @Composable
@@ -21,22 +22,23 @@ fun MachineScreen(
     machineViewModel: MachineViewModel
 ) {
     Scaffold { innerPadding ->
-        AsyncData(
-            data = machineViewModel.uiState,
-            retry = {}
+        LazyVerticalGrid(
+            columns = GridCells.Adaptive(400.dp),
+            modifier = Modifier.padding(innerPadding)
         ) {
-            LazyVerticalGrid(
-                columns = GridCells.Adaptive(400.dp),
-                modifier = Modifier.padding(innerPadding)
-            ) {
-                items((machineViewModel.uiState as MachineUiState.Success).machines) { machine ->
-                    IndexCard(
-                        imageUrl = machine.imageUrl,
-                        title = "${machine.serialNumber} ${machine.name}",
-                        description = machine.description ?: "",
-                        modifier = Modifier.padding(8.dp).width(400.dp)
-                    ) {
-                        Log.d("Machine clicked", machine.name)
+            when(machineViewModel.uiState) {
+                is MachineUiState.Loading -> item { LoadingScreen() }
+                is MachineUiState.Error -> item { ErrorScreen {  } }
+                is MachineUiState.Success -> {
+                    items((machineViewModel.uiState as MachineUiState.Success).machines) { machine ->
+                        IndexCard(
+                            imageUrl = machine.imageUrl,
+                            title = "${machine.serialNumber} ${machine.name}",
+                            description = machine.description ?: "",
+                            modifier = Modifier.padding(8.dp).width(400.dp)
+                        ) {
+                            Log.d("Machine clicked", machine.name)
+                        }
                     }
                 }
             }
