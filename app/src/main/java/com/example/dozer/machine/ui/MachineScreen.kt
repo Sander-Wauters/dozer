@@ -18,10 +18,11 @@ import com.example.dozer.common.ui.NetworkErrorIndicator
 import com.example.dozer.common.ui.IndexCard
 import com.example.dozer.common.ui.LoadingIndicator
 import com.example.dozer.common.ui.theme.DozerTheme
+import org.koin.compose.koinInject
 
 @Composable
 fun MachineScreen(
-    machineViewModel: MachineViewModel
+    machineViewModel: MachineViewModel = koinInject()
 ) {
     val uiState by machineViewModel.uiState.collectAsStateWithLifecycle()
     Scaffold { innerPadding ->

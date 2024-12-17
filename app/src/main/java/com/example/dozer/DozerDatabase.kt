@@ -15,7 +15,7 @@ import com.example.dozer.machine.data.local.MachineDao
     exportSchema = false
 )
 abstract class DozerDatabase: RoomDatabase() {
-    abstract fun machineDao(): MachineDao
+    abstract fun getMachineDao(): MachineDao
 
     companion object {
         @Volatile
