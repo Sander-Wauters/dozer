@@ -34,7 +34,7 @@ class MachineViewModel(
 
     fun getIndex() {
         viewModelScope.launch {
-            machineRepo.getIndex()
+            machineRepo.getAll()
                 .map {
                     MachineUiState.Success(it)
                 }

@@ -18,8 +18,8 @@ val databaseModule = module {
 }
 
 val repositoryModule = module {
-    factory<MachineRepository> { MockMachineRepository() }
-    //factory<MachineRepository> { OfflineMachineRepository(get()) }
+    //factory<MachineRepository> { MockMachineRepository() }
+    factory<MachineRepository> { OfflineMachineRepository(get()) }
 }
 
 val viewModelModule = module {

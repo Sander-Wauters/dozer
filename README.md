@@ -8,6 +8,6 @@
 - [x] Machine repository using datasource. 
 - [x] Link the machine repository to the machine screen viewmodel.
 - [ ] Link the machine repository to the API.
-- [ ] Machine domain object to be used by the local DB.
+- [x] Machine domain object to be used by the local DB.
 - [x] Local DB setup.
-- [ ] Link the machine repository to the local DB.
+- [x] Link the machine repository to the local DB.
