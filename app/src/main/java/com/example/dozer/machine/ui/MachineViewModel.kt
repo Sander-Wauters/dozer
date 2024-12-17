@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 sealed interface MachineUiState {
-    data class Success(val machines: List<MachineDto.Index>) : MachineUiState
+    data class Success(val machines: List<MachineDto>) : MachineUiState
     data object Error : MachineUiState
     data object Loading : MachineUiState
 }
@@ -35,16 +35,12 @@ class MachineViewModel(
     fun getIndex() {
         viewModelScope.launch {
             machineRepo.getAll()
-                .map {
-                    MachineUiState.Success(it)
-                }
-                .catch {
-                    MachineUiState.Error
-                }
+                .map { MachineUiState.Success(it) }
+                .catch { MachineUiState.Error }
                 .stateIn(
+                    initialValue = MachineUiState.Loading,
                     scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5_000),
-                    initialValue = MachineUiState.Loading
+                    started = SharingStarted.WhileSubscribed(5_000)
                 )
                 .collect {
                     _uiState.value = it

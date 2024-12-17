@@ -1,10 +1,10 @@
 package com.example.dozer.machine.data.network
 
 import com.example.dozer.machine.data.MachineDto
+import kotlinx.serialization.Serializable
 
-abstract class MachineResult {
-    data class Index(
-        val machines: List<MachineDto.Index>?,
-        val totalAmount: Int
-    )
-}
+@Serializable
+data class MachineResult(
+    val machines: List<MachineDto>?,
+    val totalAmount: Int
+)

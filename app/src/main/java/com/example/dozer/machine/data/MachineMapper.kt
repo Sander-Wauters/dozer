@@ -2,7 +2,7 @@ package com.example.dozer.machine.data
 
 import com.example.dozer.machine.data.local.Machine
 
-fun MachineDto.Index.toMachine(): Machine {
+fun MachineDto.toMachine(): Machine {
     return Machine(
         id = id.toLong(),
         brand = brand,
@@ -14,8 +14,8 @@ fun MachineDto.Index.toMachine(): Machine {
     )
 }
 
-fun Machine.toDtoIndex(): MachineDto.Index {
-    return MachineDto.Index(
+fun Machine.toDtoIndex(): MachineDto {
+    return MachineDto(
         id = id.toInt(),
         brand = brand,
         name = name,

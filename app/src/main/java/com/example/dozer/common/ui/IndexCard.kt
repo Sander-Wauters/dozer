@@ -69,7 +69,7 @@ fun IndexCard(
 @Preview(showBackground = true)
 @Composable
 fun IndexCardPreview() {
-    val data: MachineDto.Index = MockMachineDatasource().loadMachines()[0]
+    val data: MachineDto = MockMachineDatasource().loadMachines()[0]
     DozerTheme {
         IndexCard(data.imageUrl, "${data.serialNumber} ${data.name}", data.description!!)
     }
