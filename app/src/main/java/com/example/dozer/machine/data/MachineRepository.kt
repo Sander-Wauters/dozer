@@ -11,29 +11,29 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 
 interface MachineRepository {
-    suspend fun getAll(): Flow<List<Machine>>
+    suspend fun getMachines(): Flow<List<Machine>>
 }
 
 class MockMachineRepository : MachineRepository {
-    override suspend fun getAll(): Flow<List<Machine>> {
+    override suspend fun getMachines(): Flow<List<Machine>> {
         delay(2500)
         return flowOf(MockMachineDatasource().loadMachines())
     }
 }
 
 class OfflineMachineRepository(private val machineDao: MachineDao) : MachineRepository {
-    override suspend fun getAll(): Flow<List<Machine>> {
+    override suspend fun getMachines(): Flow<List<Machine>> {
         return machineDao.getAll().map { it.map(MachineEntity::asExternalModel) }
     }
 
-    suspend fun insert(machine: Machine) {
-        machineDao.insert(machine.asEntity())
+    suspend fun upsertAll(machines: List<Machine>) {
+        machineDao.upsertAll(machines.map(Machine::asEntity))
     }
 }
 
 class NetworkMachineRepository(private val machineApiService: MachineApiService) : MachineRepository {
-    override suspend fun getAll(): Flow<List<Machine>> {
-        return flowOf(machineApiService.getIndex().machines?.map(MachineDto::asExternalModel) ?: emptyList())
+    override suspend fun getMachines(): Flow<List<Machine>> {
+        return flowOf(machineApiService.getMachines().machines?.map(MachineDto::asExternalModel) ?: emptyList())
     }
 }
 
@@ -41,7 +41,7 @@ class OfflineFirstMachineRepository(
     private val machineDao: MachineDao,
     private val machineApiService: MachineApiService
 ) : MachineRepository {
-    override suspend fun getAll(): Flow<List<Machine>> {
+    override suspend fun getMachines(): Flow<List<Machine>> {
         return machineDao.getAll().map { it.map(MachineEntity::asExternalModel) }
     }
 }
