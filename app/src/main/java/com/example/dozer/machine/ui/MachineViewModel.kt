@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.dozer.machine.data.MachineDto
+import com.example.dozer.machine.data.Machine
 import com.example.dozer.machine.data.MachineRepository
 import com.example.dozer.machine.data.MockMachineRepository
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 sealed interface MachineUiState {
-    data class Success(val machines: List<MachineDto>) : MachineUiState
+    data class Success(val machines: List<Machine>) : MachineUiState
     data object Error : MachineUiState
     data object Loading : MachineUiState
 }

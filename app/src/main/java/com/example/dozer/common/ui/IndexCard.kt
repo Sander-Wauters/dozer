@@ -21,7 +21,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.dozer.R
 import com.example.dozer.machine.data.local.MockMachineDatasource
-import com.example.dozer.machine.data.MachineDto
+import com.example.dozer.machine.data.Machine
 import com.example.dozer.common.ui.theme.DozerTheme
 
 @Composable
@@ -69,7 +69,7 @@ fun IndexCard(
 @Preview(showBackground = true)
 @Composable
 fun IndexCardPreview() {
-    val data: MachineDto = MockMachineDatasource().loadMachines()[0]
+    val data: Machine = MockMachineDatasource().loadMachines()[0]
     DozerTheme {
         IndexCard(data.imageUrl, "${data.serialNumber} ${data.name}", data.description!!)
     }

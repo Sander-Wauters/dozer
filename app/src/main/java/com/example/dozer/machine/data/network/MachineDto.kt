@@ -1,4 +1,4 @@
-package com.example.dozer.machine.data
+package com.example.dozer.machine.data.network
 
 import kotlinx.serialization.Serializable
 

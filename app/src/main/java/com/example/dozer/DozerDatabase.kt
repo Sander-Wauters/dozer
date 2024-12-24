@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.dozer.machine.data.local.Machine
+import com.example.dozer.machine.data.local.MachineEntity
 import com.example.dozer.machine.data.local.MachineDao
 
 @Database(
     entities = [
-        Machine::class
+        MachineEntity::class
     ],
     version = 1,
     exportSchema = false

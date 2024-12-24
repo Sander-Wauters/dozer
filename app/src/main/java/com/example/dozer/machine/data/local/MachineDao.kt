@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface MachineDao {
     @Query("SELECT * from machines")
-    fun getAll(): Flow<List<Machine>>
+    fun getAll(): Flow<List<MachineEntity>>
 
     @Insert(onConflict = OnConflictStrategy.ABORT)
-    suspend fun insert(machine: Machine)
+    suspend fun insert(machineEntity: MachineEntity)
 }
