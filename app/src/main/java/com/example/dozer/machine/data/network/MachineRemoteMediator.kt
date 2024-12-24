@@ -1,5 +1,6 @@
 package com.example.dozer.machine.data.network
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -39,7 +40,7 @@ class MachineRemoteMediator(
                     database.getMachineDao().clearAll()
                 database.getMachineDao().upsertAll(machineResult.machines?.map(MachineDto::asEntity) ?: emptyList())
             }
-            MediatorResult.Success(endOfPaginationReached = machineResult.machines?.isEmpty() ?: false)
+            MediatorResult.Success(endOfPaginationReached = machineResult.machines.isNullOrEmpty() || (machineResult.totalAmount <= state.config.pageSize ))
         } catch (e: IOException) {
             MediatorResult.Error(e)
         } catch (e: HttpException) {

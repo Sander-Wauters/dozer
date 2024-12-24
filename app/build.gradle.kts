@@ -59,6 +59,8 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.compose.android)
     implementation(libs.androidx.room.common)
     implementation(libs.androidx.room.ktx)
+    implementation("androidx.room:room-paging")
+    implementation("androidx.paging:paging-compose:3.3.5")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
     implementation("com.squareup.okhttp3:okhttp:4.10.0")

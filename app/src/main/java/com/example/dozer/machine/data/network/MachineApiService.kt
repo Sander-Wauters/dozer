@@ -6,7 +6,7 @@ import retrofit2.http.Query
 interface MachineApiService {
     @GET("Machine")
     suspend fun getMachines(
-        @Query("page") page: Int = 1,
-        @Query("pageSize") pageSize: Int = 25
+        @Query("Page") page: Int = 1,
+        @Query("PageSize") pageSize: Int = 10
     ): MachineResult
 }

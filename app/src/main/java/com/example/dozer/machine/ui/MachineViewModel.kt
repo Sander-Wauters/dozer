@@ -5,19 +5,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.dozer.machine.data.Machine
 import com.example.dozer.machine.data.MachineRepository
 import com.example.dozer.machine.data.MockMachineRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 sealed interface MachineUiState {
-    data class Success(val machines: List<Machine>) : MachineUiState
+    data class Success(val machines: Flow<PagingData<Machine>>) : MachineUiState
     data object Error : MachineUiState
     data object Loading : MachineUiState
 }
@@ -25,7 +25,7 @@ sealed interface MachineUiState {
 class MachineViewModel(
     private val machineRepo: MachineRepository
 ) : ViewModel() {
-    private val _uiState: MutableStateFlow<MachineUiState> = MutableStateFlow(MachineUiState.Success(emptyList()))
+    private val _uiState: MutableStateFlow<MachineUiState> = MutableStateFlow(MachineUiState.Loading)
     val uiState: StateFlow<MachineUiState> = _uiState
 
     init {
@@ -34,17 +34,10 @@ class MachineViewModel(
 
     fun getIndex() {
         viewModelScope.launch {
-            machineRepo.getMachines()
-                .map { MachineUiState.Success(it) }
+            _uiState.value = MachineUiState.Success(machineRepo.getMachines()
                 .catch { MachineUiState.Error }
-                .stateIn(
-                    initialValue = MachineUiState.Loading,
-                    scope = viewModelScope,
-                    started = SharingStarted.WhileSubscribed(5_000)
-                )
-                .collect {
-                    _uiState.value = it
-                }
+                .cachedIn(viewModelScope)
+            )
         }
     }
 

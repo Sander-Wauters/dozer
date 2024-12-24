@@ -11,5 +11,5 @@
 - [x] Machine domain object to be used by the local DB.
 - [x] Local DB setup.
 - [x] Link the machine repository to the local DB.
-- [ ] Offline first with pull based syncronization.
+- [x] Offline first with pull based syncronization.
 - [ ] Testing.

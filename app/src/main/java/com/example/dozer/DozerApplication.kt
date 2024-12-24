@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.example.dozer.machine.data.MachineRepository
 import com.example.dozer.machine.data.NetworkMachineRepository
+import com.example.dozer.machine.data.OfflineFirstMachineRepository
 import com.example.dozer.machine.data.local.MachineDao
 import com.example.dozer.machine.data.network.MachineApiService
 import com.example.dozer.machine.ui.MachineViewModel
@@ -73,7 +74,8 @@ val networkModule = module {
 val repositoryModule = module {
     //factory<MachineRepository> { MockMachineRepository() }
     //factory<MachineRepository> { OfflineMachineRepository(get()) }
-    factory<MachineRepository> { NetworkMachineRepository(get()) }
+    //factory<MachineRepository> { NetworkMachineRepository(get()) }
+    factory<MachineRepository> { OfflineFirstMachineRepository(get(), get()) }
 }
 
 val viewModelModule = module {
